@@ -10,6 +10,7 @@ root.render(
   <StrictMode>
     <App
       url="http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8"
+      // url="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
     />
   </StrictMode>
 );

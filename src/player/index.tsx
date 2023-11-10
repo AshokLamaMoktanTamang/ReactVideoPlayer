@@ -2,6 +2,7 @@ import { FC, useEffect, useRef } from "react";
 import Hls from "hls.js";
 
 import { IPlayer } from "types/player";
+import { getUrlExtension } from "utils/index";
 
 import style from './style.module.scss'
 
@@ -9,10 +10,11 @@ const Player: FC<IPlayer> = ({ url }) => {
   const playerRef = useRef<null | HTMLVideoElement>(null)
 
   useEffect(() => {
-    if (!Hls.isSupported() || !playerRef.current) return
+    const isM3u8 = getUrlExtension(url) === 'm3u8'
 
+    if (!isM3u8 || !Hls.isSupported() || !playerRef.current) return
+    
     const hls = new Hls()
-
     hls.loadSource(url)
     hls.attachMedia(playerRef.current)
 
@@ -34,6 +36,7 @@ const Player: FC<IPlayer> = ({ url }) => {
   return (
     <div className={style.playerContainer}>
       <video
+        src={url}
         ref={playerRef}
         controls
         onTimeUpdate={handleTimeUpdate}
