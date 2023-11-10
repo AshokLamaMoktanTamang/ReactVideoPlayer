@@ -1,34 +1,19 @@
-import { FC, useEffect, useRef } from "react";
-import Hls from "hls.js";
+import { FC } from "react";
 
-import { IApp } from "types/app";
+import { Provider } from 'react-redux'
+import { store } from './store'
 
-import style from './app.module.scss'
+import Player from '../player';
+import { IPlayer } from 'types/player';
 
-const App: FC<IApp> = ({ url }) => {
-  const playerRef = useRef<null | HTMLVideoElement>(null)
-
-  useEffect(() => {
-    if (!Hls.isSupported() || !playerRef.current) return
-
-    const hls = new Hls()
-
-    hls.loadSource(url)
-    hls.attachMedia(playerRef.current)
-
-    return () => {
-      if (Hls.isSupported()) {
-        hls.destroy();
-      }
-    };
-  }, [playerRef, url])
-
-  return (
-    <div className={style.playerContainer}>
-      <video ref={playerRef} controls>
-      </video>
-    </div>
-  );
+const App: FC<IPlayer> = () => {
+    return (
+        <Provider store={store}>
+            <Player
+                url="http://sample.vodobox.net/skate_phantom_flex_4k/skate_phantom_flex_4k.m3u8"
+            />
+        </Provider>
+    );
 }
 
 export default App;
