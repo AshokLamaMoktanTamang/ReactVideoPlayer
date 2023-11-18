@@ -1,7 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 
+import progressReducer from './features/progress/progress.slice'
+
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    progress: progressReducer
+  },
 })
 
 export type RootState = ReturnType<typeof store.getState>
