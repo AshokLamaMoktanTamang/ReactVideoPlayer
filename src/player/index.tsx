@@ -1,10 +1,14 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, MutableRefObject, createContext, useEffect, useRef } from "react";
 import Hls from "hls.js";
+
+import ProgressBar from "components/ProgressBar";
 
 import { IPlayer } from "types/player";
 import { getUrlExtension } from "utils/index";
 
 import style from './style.module.scss'
+
+export const PlayerContext = createContext<MutableRefObject<HTMLVideoElement | null> | null>(null)
 
 const Player: FC<IPlayer> = ({ url }) => {
   const playerRef = useRef<null | HTMLVideoElement>(null)
@@ -26,11 +30,11 @@ const Player: FC<IPlayer> = ({ url }) => {
   }, [playerRef, url])
 
   const handleTimeUpdate = () => {
-    console.log('Update --> ', playerRef.current?.currentTime);
+    // console.log('Update --> ', playerRef.current?.currentTime);
   }
 
   const handleLoadedMetaData = () => {
-    console.log(playerRef.current?.duration);
+    // console.log(playerRef.current?.duration);
   }
 
   return (
@@ -43,6 +47,10 @@ const Player: FC<IPlayer> = ({ url }) => {
         onLoadedMetadata={handleLoadedMetaData}
       >
       </video>
+
+      <PlayerContext.Provider value={playerRef}>
+        <ProgressBar />
+      </PlayerContext.Provider>
     </div>
   );
 }
