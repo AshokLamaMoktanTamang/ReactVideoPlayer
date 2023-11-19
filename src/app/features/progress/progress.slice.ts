@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import {IProgressSlice} from 'types/progress.slice'
 
 const initialState: IProgressSlice = {
@@ -11,7 +11,7 @@ export const progressSlice = createSlice({
   name: 'progress',
   initialState,
   reducers: {
-    setDuration: (state, actions) => {
+    setDuration: (state, actions: PayloadAction<number>) => {
         state.duration = actions.payload
     }
   },
