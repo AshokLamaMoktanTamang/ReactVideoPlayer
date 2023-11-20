@@ -7,7 +7,6 @@ import { setCurrentTime } from 'features/progress/progress.slice';
 
 import style from './style.module.scss'
 
-
 const ProgressBar = () => {
     const player = useContext(PlayerContext)
     const dispatch = useDispatch()
