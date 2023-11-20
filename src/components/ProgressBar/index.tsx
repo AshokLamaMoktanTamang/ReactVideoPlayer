@@ -14,6 +14,8 @@ const ProgressBar = () => {
     const duration = useSelector((state: RootState) => state.progress.duration)
     const curentTime = useSelector((state: RootState) => state.progress.currentTime)
 
+    const progressWidth = (curentTime / duration) * 100
+
     const handleSeek = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         const seekTime = Number(e.target.value)
         dispatch(setCurrentTime(seekTime))
@@ -29,7 +31,7 @@ const ProgressBar = () => {
     }, [player])
 
     return (
-        <div className={style.progressWrapper}>
+        <label className={style.progressWrapper}>
             <input
                 type="range"
                 name="progress-bar"
@@ -39,7 +41,10 @@ const ProgressBar = () => {
                 onChange={handleSeek}
                 onMouseUp={handleMouseUp}
             />
-        </div>
+            <div className={style.customProgress}>
+                <div className={style.progress} style={{ width: `${progressWidth}%` }}></div>
+            </div>
+        </label>
     );
 }
 

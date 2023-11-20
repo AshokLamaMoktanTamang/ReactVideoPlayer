@@ -1,8 +1,52 @@
 .progressWrapper {
     width: 100%;
+    position: relative;
+    display: block;
+    height: .4rem;
 
     &>input[type="range"] {
         width: 100%;
+        left: 0;
+        position: absolute;
         cursor: pointer;
+        height: 100%;
+        transform: translateY(-50%);
+        top: 50%;
+        appearance: none;
+        margin: 0;
+        z-index: 10;
+        background-color: transparent;
+
+        &::-webkit-slider-thumb {
+            appearance: none;
+            width: .7rem;
+            height: .7rem;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+    }
+
+    &>.customProgress {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background: var(--video-progress-bar-gray);
+        border-radius: .25rem;
+        overflow: hidden;
+        top: 50%;
+        transform: translateY(-50%);
+
+        &>.progress {
+            height: 100%;
+            background: var(--primary);
+        }
+    }
+
+    &:hover {
+        &>input[type="range"] {
+            &::-webkit-slider-thumb {
+                background: var(--primary);
+            }
+        }
     }
 }

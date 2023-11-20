@@ -3,3 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+:root{
+    --primary: #FF0000;
+    --secondary: #282828;
+    --video-progress-bar-gray: #e1e1e1;
+}
