@@ -6,7 +6,7 @@ import ProgressBar from "components/ProgressBar";
 
 import { IPlayer } from "types/player";
 import { getUrlExtension } from "utils/index";
-import { setDuration } from "features/progress/progress.slice";
+import { setCurrentTime, setDuration } from "features/progress/progress.slice";
 
 import style from './style.module.scss'
 
@@ -34,7 +34,7 @@ const Player: FC<IPlayer> = ({ url }) => {
   }, [playerRef, url])
 
   const handleTimeUpdate = () => {
-    // console.log('Update --> ', playerRef.current?.currentTime);
+    dispatch(setCurrentTime(playerRef.current?.currentTime || 0))
   }
 
   const handleLoadedMetaData = () => {

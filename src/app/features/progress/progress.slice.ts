@@ -13,12 +13,16 @@ export const progressSlice = createSlice({
   reducers: {
     setDuration: (state, actions: PayloadAction<number>) => {
         state.duration = actions.payload
+    },
+    setCurrentTime: (state, actions: PayloadAction<number>) => {
+      state.currentTime = actions.payload
     }
   },
 })
 
 export const { 
     setDuration, 
+    setCurrentTime
 } = progressSlice.actions
 
 export default progressSlice.reducer
