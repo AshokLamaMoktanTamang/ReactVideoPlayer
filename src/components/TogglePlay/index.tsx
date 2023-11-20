@@ -1,12 +1,15 @@
 import { Button } from "components/index";
-import { PlayIcon } from 'assets/icons/index'
+import {ReactComponent as PlayIcon} from 'assets/icons/play.svg'
 
 const TogglePlay = () => {
     return (
-        <Button
-            icon={PlayIcon}
-            toolTip="Play"
-        />
+        <>
+            <PlayIcon />
+            <Button
+                // icon={<PlayIcon />}
+                toolTip="Play"
+            />
+        </>
     );
 }
 

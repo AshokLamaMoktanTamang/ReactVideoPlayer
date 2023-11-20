@@ -10,7 +10,7 @@ const Button: FC<IButton> = ({ icon, toolTip, onClick }) => {
             className={style.button}
             onClick={onClick}
         >
-            <img src={icon} alt={icon} />
+            {icon}
             {toolTip}
         </button>
     );

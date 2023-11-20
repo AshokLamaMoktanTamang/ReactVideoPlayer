@@ -1,7 +1,7 @@
-import { MouseEventHandler } from "react"
+import { MouseEventHandler, ReactNode } from "react"
 
 export interface IButton {
-    icon: string
+    icon: ReactNode
     toolTip: string
     onClick?: MouseEventHandler<HTMLButtonElement>
 }

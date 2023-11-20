@@ -1,6 +1,6 @@
-/// <reference types='vitest' />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import svgr from '@svgr/rollup';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import path from 'path';
 
@@ -17,7 +17,7 @@ export default defineConfig({
     host: 'localhost',
   },
 
-  plugins: [react(), nxViteTsPaths()],
+  plugins: [react(), svgr(), nxViteTsPaths()],
 
   resolve: {
     alias: {
@@ -29,13 +29,4 @@ export default defineConfig({
       types: path.resolve(__dirname, './src/types/'),
     },
   },
-
-  // test: {
-  //   globals: true,
-  //   cache: {
-  //     dir: './node_modules/.vitest',
-  //   },
-  //   environment: 'jsdom',
-  //   include: ['src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-  // },
 });
