@@ -1,10 +1,11 @@
 import { FC, MutableRefObject, createContext, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Hls from "hls.js";
 
 import ProgressBar from "components/ProgressBar";
 
 import { IPlayer } from "types/player";
+import { RootState } from "src/app/store";
 import { getUrlExtension } from "utils/index";
 import { setCurrentTime, setDuration } from "features/progress/progress.slice";
 
@@ -14,8 +15,9 @@ export const PlayerContext = createContext<MutableRefObject<HTMLVideoElement | n
 
 const Player: FC<IPlayer> = ({ url }) => {
   const playerRef = useRef<null | HTMLVideoElement>(null)
-
   const dispatch = useDispatch()
+
+  const isSeeking = useSelector((state: RootState) => state.progress.seeking)
 
   useEffect(() => {
     const isM3u8 = getUrlExtension(url) === 'm3u8'
@@ -34,7 +36,7 @@ const Player: FC<IPlayer> = ({ url }) => {
   }, [playerRef, url])
 
   const handleTimeUpdate = () => {
-    dispatch(setCurrentTime(playerRef.current?.currentTime || 0))
+    !isSeeking && dispatch(setCurrentTime(playerRef.current?.currentTime || 0))
   }
 
   const handleLoadedMetaData = () => {

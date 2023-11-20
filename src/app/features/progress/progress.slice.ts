@@ -4,7 +4,8 @@ import {IProgressSlice} from 'types/progress.slice'
 const initialState: IProgressSlice = {
   currentTime: 0,
   duration: 0,
-  playing: false
+  playing: false,
+  seeking: false
 }
 
 export const progressSlice = createSlice({
@@ -16,13 +17,17 @@ export const progressSlice = createSlice({
     },
     setCurrentTime: (state, actions: PayloadAction<number>) => {
       state.currentTime = actions.payload
-    }
+    },
+    setSeeking: (state, actions: PayloadAction<boolean>) => {
+      state.seeking = actions.payload
+    },
   },
 })
 
 export const { 
     setDuration, 
-    setCurrentTime
+    setCurrentTime,
+    setSeeking
 } = progressSlice.actions
 
 export default progressSlice.reducer
