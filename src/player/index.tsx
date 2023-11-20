@@ -2,7 +2,7 @@ import { FC, MutableRefObject, createContext, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Hls from "hls.js";
 
-import { TogglePlay, ProgressBar } from "components/index";
+import { ProgressBar, TimeProgress, TogglePlay } from "components/index";
 
 import { IPlayer } from "types/player";
 import { RootState } from "src/app/store";
@@ -51,12 +51,12 @@ const Player: FC<IPlayer> = ({ url }) => {
         controls
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetaData}
-      >
-      </video>
+      />
 
       <PlayerContext.Provider value={playerRef}>
         <ProgressBar />
         <TogglePlay />
+        <TimeProgress />
       </PlayerContext.Provider>
     </div>
   );

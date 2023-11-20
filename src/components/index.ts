@@ -1,9 +1,11 @@
 import Button from "./Button";
 import ProgressBar from "./ProgressBar";
+import TimeProgress from "./TimeProgress";
 import TogglePlay from "./TogglePlay";
 
 export {
     Button,
     ProgressBar,
-    TogglePlay
+    TimeProgress,
+    TogglePlay,
 }
