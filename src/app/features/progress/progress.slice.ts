@@ -21,13 +21,17 @@ export const progressSlice = createSlice({
     setSeeking: (state, actions: PayloadAction<boolean>) => {
       state.seeking = actions.payload
     },
+    setPlaying: (state, actions: PayloadAction<boolean>) => {
+      state.playing = actions.payload
+    },
   },
 })
 
 export const { 
     setDuration, 
     setCurrentTime,
-    setSeeking
+    setSeeking,
+    setPlaying
 } = progressSlice.actions
 
 export default progressSlice.reducer
