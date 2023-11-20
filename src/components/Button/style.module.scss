@@ -1,4 +1,48 @@
 .button {
-    // background-color: transparent;
+    background-color: transparent;
     border: none;
+    cursor: pointer;
+    padding: .5rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    position: relative;
+
+    &>svg {
+        color: var(--primary-text);
+    }
+
+    &>.toolTip {
+        position: absolute;
+        font-size: .95rem;
+        padding: 0.25rem .5rem;
+        background-color: var(--primary-text-background);
+        border-radius: 0.15em;
+        display: none;
+        left: 50%;
+        top: 0;
+        transform: translate(-50%, -100%);
+        animation: delayDisplay 1s 1;
+        white-space: nowrap;
+        color: var(--primary-text);
+    }
+
+    &:hover {
+        &>.toolTip {
+            display: block;
+        }
+    }
+}
+
+@keyframes delayDisplay {
+    0% {
+        visibility: hidden;
+    }
+
+    99% {
+        visibility: hidden;
+    }
+
+    100% {
+        visibility: visible;
+    }
 }
