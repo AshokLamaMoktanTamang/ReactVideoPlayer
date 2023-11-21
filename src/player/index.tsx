@@ -1,4 +1,4 @@
-import { FC, MutableRefObject, createContext, useEffect, useRef } from "react";
+import { FC, MutableRefObject, createContext, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Hls from "hls.js";
 
@@ -7,7 +7,7 @@ import { FullScreen, ProgressBar, TimeProgress, TogglePlay, VolumeSlider } from 
 import { IPlayer } from "types/player";
 import { RootState } from "src/app/store";
 import { getUrlExtension } from "utils/index";
-import { setCurrentTime, setDuration } from "features/progress/progress.slice";
+import { setCurrentTime, setDuration, setPlaying } from "features/progress/progress.slice";
 
 import style from './style.module.scss'
 
@@ -19,7 +19,9 @@ const Player: FC<IPlayer> = ({ url }) => {
   const containerRef = useRef<null | HTMLDivElement>(null)
 
   const dispatch = useDispatch()
+  
   const isSeeking = useSelector((state: RootState) => state.progress.seeking)
+  const isPlaying = useSelector((state: RootState) => state.progress.playing)
 
   useEffect(() => {
     const isM3u8 = getUrlExtension(url) === 'm3u8'
@@ -45,10 +47,20 @@ const Player: FC<IPlayer> = ({ url }) => {
     dispatch(setDuration(playerRef.current?.duration || 0))
   }
 
+  const handleToglePlay = useCallback(() => {
+    if (!playerRef?.current) return
+
+    const player = playerRef.current
+
+    dispatch(setPlaying(!isPlaying))
+    isPlaying ? player.pause() : player.play()
+}, [playerRef, isPlaying])
+
   return (
     <div
       className={style.playerContainer}
       ref={containerRef}
+      onClick={handleToglePlay}
     >
       <video
         src={url}
@@ -58,9 +70,9 @@ const Player: FC<IPlayer> = ({ url }) => {
         onLoadedMetadata={handleLoadedMetaData}
       />
 
+      <TogglePlay onClick={handleToglePlay} />
       <PlayerContext.Provider value={playerRef}>
         <ProgressBar />
-        <TogglePlay />
         <VolumeSlider />
       </PlayerContext.Provider>
 
