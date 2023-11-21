@@ -1,13 +1,13 @@
 .volumeWrapper {
     width: 100%;
-    max-width: 150px;
+    max-width: 100px;
     display: flex;
     align-items: center;
 
     .volumeSlider {
         visibility: hidden;
         position: relative;
-        transition: .15s ease-in-out;
+        transition: .07s ease-in-out;
         height: .3rem;
         width: 0;
 
