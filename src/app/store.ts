@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import progressReducer from './features/progress/progress.slice'
+import {progressReducer, playerReducer} from './features'
 
 export const store = configureStore({
   reducer: {
-    progress: progressReducer
+    progress: progressReducer,
+    player: playerReducer
   },
 })
 

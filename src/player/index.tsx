@@ -2,7 +2,7 @@ import { FC, MutableRefObject, createContext, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Hls from "hls.js";
 
-import { ProgressBar, TimeProgress, TogglePlay, VolumeSlider } from "components/index";
+import { FullScreen, ProgressBar, TimeProgress, TogglePlay, VolumeSlider } from "components/index";
 
 import { IPlayer } from "types/player";
 import { RootState } from "src/app/store";
@@ -12,11 +12,13 @@ import { setCurrentTime, setDuration } from "features/progress/progress.slice";
 import style from './style.module.scss'
 
 export const PlayerContext = createContext<MutableRefObject<HTMLVideoElement | null> | null>(null)
+export const ContainerContext = createContext<MutableRefObject<HTMLDivElement | null> | null>(null)
 
 const Player: FC<IPlayer> = ({ url }) => {
   const playerRef = useRef<null | HTMLVideoElement>(null)
-  const dispatch = useDispatch()
+  const containerRef = useRef<null | HTMLDivElement>(null)
 
+  const dispatch = useDispatch()
   const isSeeking = useSelector((state: RootState) => state.progress.seeking)
 
   useEffect(() => {
@@ -44,7 +46,10 @@ const Player: FC<IPlayer> = ({ url }) => {
   }
 
   return (
-    <div className={style.playerContainer}>
+    <div
+      className={style.playerContainer}
+      ref={containerRef}
+    >
       <video
         src={url}
         ref={playerRef}
@@ -57,8 +62,13 @@ const Player: FC<IPlayer> = ({ url }) => {
         <ProgressBar />
         <TogglePlay />
         <VolumeSlider />
-        <TimeProgress />
       </PlayerContext.Provider>
+
+      <TimeProgress />
+
+      <ContainerContext.Provider value={containerRef}>
+        <FullScreen />
+      </ContainerContext.Provider>
     </div>
   );
 }
