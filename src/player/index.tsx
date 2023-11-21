@@ -2,7 +2,7 @@ import { FC, MutableRefObject, createContext, useCallback, useEffect, useRef } f
 import { useDispatch, useSelector } from "react-redux";
 import Hls from "hls.js";
 
-import { FullScreen, ProgressBar, TimeProgress, TogglePlay, VolumeSlider } from "components/index";
+import { FullScreen, ProgressBar, Setting, TimeProgress, TogglePlay, VolumeSlider } from "components/index";
 
 import { IPlayer } from "types/player";
 import { RootState } from "src/app/store";
@@ -79,6 +79,7 @@ const Player: FC<IPlayer> = ({ url }) => {
         <PlayerContext.Provider value={playerRef}>
           <ProgressBar />
           <VolumeSlider />
+          <Setting />
         </PlayerContext.Provider>
 
         <TimeProgress />
