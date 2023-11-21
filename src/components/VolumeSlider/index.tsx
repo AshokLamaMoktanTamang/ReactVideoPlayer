@@ -33,7 +33,7 @@ const VolumeSlider = () => {
         <div className={style.volumeWrapper}>
             <Button
                 icon={volume === 0 ? <MuteIcon /> : <VolumeIcon />}
-                toolTip="Mute"
+                toolTip={volume === 0 ? "Unmute" : "Mute"}
                 onClick={handleTogleMute}
             />
 
