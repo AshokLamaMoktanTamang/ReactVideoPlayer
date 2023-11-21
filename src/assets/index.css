@@ -16,4 +16,6 @@ body{
 
     --primary-text: #fafafa;
     --primary-text-background: #3d3d3d;
+
+    --range-unused: #999999;
 }

@@ -30,7 +30,7 @@ const VolumeSlider = () => {
     }
 
     return (
-        <>
+        <div className={style.volumeWrapper}>
             <Button
                 icon={volume === 0 ? <MuteIcon /> : <VolumeIcon />}
                 toolTip="Mute"
@@ -49,7 +49,7 @@ const VolumeSlider = () => {
                     <div className={style.volumeRange} style={{ width: `${volume * 100}%` }}></div>
                 </div>
             </label>
-        </>
+        </div>
     );
 }
 

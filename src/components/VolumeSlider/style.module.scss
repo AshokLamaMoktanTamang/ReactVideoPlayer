@@ -1,0 +1,60 @@
+.volumeWrapper {
+    width: 100%;
+    max-width: 150px;
+    display: flex;
+    align-items: center;
+
+    .volumeSlider {
+        visibility: hidden;
+        position: relative;
+        transition: .15s ease-in-out;
+        height: .3rem;
+        width: 0;
+
+        &>.customRange {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background: var(--range-unused);
+            border-radius: .25rem;
+            overflow: hidden;
+            top: 50%;
+            transform: translateY(-50%);
+            
+            &>.volumeRange {
+                height: 100%;
+                background: var(--primary-text);
+            }
+        }
+
+        & input {
+            left: 0;
+            position: absolute;
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+            transform: translateY(-50%);
+            top: 50%;
+            appearance: none;
+            background-color: transparent;
+            margin: 0;
+            z-index: 10;
+
+            &::-webkit-slider-thumb {
+                appearance: none;
+                width: .7rem;
+                height: .7rem;
+                background: var(--primary-text);
+                cursor: pointer;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    &:hover {
+        & .volumeSlider {
+            visibility: visible;
+            width: 100%;
+        }
+    }
+}
