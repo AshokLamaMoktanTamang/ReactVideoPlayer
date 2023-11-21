@@ -2,17 +2,21 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { IPlayerSlice } from 'types/player.slice'
 
 const initialState: IPlayerSlice = {
-    isFullscreen: false
+  isFullscreen: false
 }
 
 export const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
+    setFullScreen: (state, actions: PayloadAction<boolean>) => {
+      state.isFullscreen = actions.payload
+    },
   },
 })
 
-export const { 
+export const {
+  setFullScreen
 } = playerSlice.actions
 
 export default playerSlice.reducer
