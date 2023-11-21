@@ -19,7 +19,7 @@ const Player: FC<IPlayer> = ({ url }) => {
   const containerRef = useRef<null | HTMLDivElement>(null)
 
   const dispatch = useDispatch()
-  
+
   const isSeeking = useSelector((state: RootState) => state.progress.seeking)
   const isPlaying = useSelector((state: RootState) => state.progress.playing)
 
@@ -54,33 +54,39 @@ const Player: FC<IPlayer> = ({ url }) => {
 
     dispatch(setPlaying(!isPlaying))
     isPlaying ? player.pause() : player.play()
-}, [playerRef, isPlaying])
+  }, [playerRef, isPlaying])
 
   return (
     <div
-      className={style.playerContainer}
+      className={style.wrapper}
       ref={containerRef}
-      onClick={handleToglePlay}
     >
-      <video
-        src={url}
-        ref={playerRef}
-        controls
-        onTimeUpdate={handleTimeUpdate}
-        onLoadedMetadata={handleLoadedMetaData}
-      />
+      <div
+        className={style.playerContainer}
+        onClick={handleToglePlay}
+      >
+        <video
+          src={url}
+          ref={playerRef}
+          // controls
+          onTimeUpdate={handleTimeUpdate}
+          onLoadedMetadata={handleLoadedMetaData}
+        />
+      </div>
 
-      <TogglePlay onClick={handleToglePlay} />
-      <PlayerContext.Provider value={playerRef}>
-        <ProgressBar />
-        <VolumeSlider />
-      </PlayerContext.Provider>
+      <div className={style.controlsWrapper}>
+        <TogglePlay onClick={handleToglePlay} />
+        <PlayerContext.Provider value={playerRef}>
+          <ProgressBar />
+          <VolumeSlider />
+        </PlayerContext.Provider>
 
-      <TimeProgress />
+        <TimeProgress />
 
-      <ContainerContext.Provider value={containerRef}>
-        <FullScreen />
-      </ContainerContext.Provider>
+        <ContainerContext.Provider value={containerRef}>
+          <FullScreen />
+        </ContainerContext.Provider>
+      </div>
     </div>
   );
 }
