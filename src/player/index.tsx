@@ -1,6 +1,6 @@
 import { FC, MutableRefObject, createContext, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Hls from "hls.js";
+import Hls, { AudioTrackLoadedData, ManifestParsedData } from "hls.js";
 
 import { FullScreen, ProgressBar, Setting, TimeProgress, TogglePlay, VolumeSlider } from "components/index";
 
@@ -29,6 +29,21 @@ const Player: FC<IPlayer> = ({ url }) => {
     if (!isM3u8 || !Hls.isSupported() || !playerRef.current) return
 
     const hls = new Hls()
+
+    hls.on(Hls.Events.MANIFEST_PARSED, (_event, data: ManifestParsedData) => {
+      const levels = data.levels || [];
+      const qualityLabels = levels.map((level) => level.height + 'p');
+
+      console.log(qualityLabels);
+    });
+
+    hls.on(Hls.Events.AUDIO_TRACK_LOADED, () => {
+      const audioTracks = hls.audioTracks || [];
+      const audioTrackLabels = audioTracks.map((track) => track.name);
+
+      console.log(audioTrackLabels);
+    });
+
     hls.loadSource(url)
     hls.attachMedia(playerRef.current)
 

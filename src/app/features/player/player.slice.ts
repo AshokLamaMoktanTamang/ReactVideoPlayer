@@ -2,7 +2,10 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { IPlayerSlice } from 'types/player.slice'
 
 const initialState: IPlayerSlice = {
-  isFullscreen: false
+  isFullscreen: false,
+  audios: [],
+  qualities: [],
+  subtitles: []
 }
 
 export const playerSlice = createSlice({
@@ -12,11 +15,23 @@ export const playerSlice = createSlice({
     setFullScreen: (state, actions: PayloadAction<boolean>) => {
       state.isFullscreen = actions.payload
     },
+    setSubtitles: (state, actions: PayloadAction<Array<string>>) => {
+      state.subtitles = actions.payload
+    },
+    setQualities: (state, actions: PayloadAction<Array<string>>) => {
+      state.qualities = actions.payload
+    },
+    setAudios: (state, actions: PayloadAction<Array<string>>) => {
+      state.audios = actions.payload
+    },
   },
 })
 
 export const {
-  setFullScreen
+  setAudios,
+  setFullScreen,
+  setQualities,
+  setSubtitles
 } = playerSlice.actions
 
 export default playerSlice.reducer
