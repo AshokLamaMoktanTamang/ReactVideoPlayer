@@ -1,6 +1,6 @@
 import { FC, MutableRefObject, createContext, useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Hls, { AudioTrackLoadedData, ManifestParsedData } from "hls.js";
+import Hls, { ManifestParsedData } from "hls.js";
 
 import { FullScreen, ProgressBar, Setting, TimeProgress, TogglePlay, VolumeSlider } from "components/index";
 
@@ -8,6 +8,7 @@ import { IPlayer } from "types/player";
 import { RootState } from "src/app/store";
 import { getUrlExtension } from "utils/index";
 import { setCurrentTime, setDuration, setPlaying } from "features/progress/progress.slice";
+import { setAudios, setQualities, setSubtitles } from "features/player/player.slice";
 
 import style from './style.module.scss'
 
@@ -32,16 +33,20 @@ const Player: FC<IPlayer> = ({ url }) => {
 
     hls.on(Hls.Events.MANIFEST_PARSED, (_event, data: ManifestParsedData) => {
       const levels = data.levels || [];
+      const subtitleTracks = data.subtitleTracks || [];
+
       const qualityLabels = levels.map((level) => level.height + 'p');
+      const subtitleTrackLabels = subtitleTracks.map((track) => track.name);
 
-      console.log(qualityLabels);
+      dispatch(setQualities(qualityLabels))
+      dispatch(setSubtitles(subtitleTrackLabels))
     });
-
+    
     hls.on(Hls.Events.AUDIO_TRACK_LOADED, () => {
       const audioTracks = hls.audioTracks || [];
       const audioTrackLabels = audioTracks.map((track) => track.name);
-
-      console.log(audioTrackLabels);
+      
+      dispatch(setAudios(audioTrackLabels))
     });
 
     hls.loadSource(url)
